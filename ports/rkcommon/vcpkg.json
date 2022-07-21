@@ -1,7 +1,7 @@
 {
   "name": "rkcommon",
   "version": "1.10.0",
-  "port-version": 0,
+  "port-version": 1,
   "homepage": "https://github.com/ospray/rkcommon",
   "description": "C++/CMake infrastructure",
   "dependencies": [
