@@ -9,6 +9,7 @@ vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
       -DBUILD_TESTING=false
+      -DINSTALL_DEPS=false
 )
 
 vcpkg_cmake_install()
