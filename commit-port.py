@@ -8,9 +8,12 @@ def check_ret(val):
         print(f"error {val}. stopping")
         exit(0)
 
+def get_version_dir(val):
+    return f"versions/{val[0]}-"
+
 def get_version_file_name(val):
-    dir = val[0] + '-'
-    return f"versions/{dir}/{val}.json"
+    dir = get_version_dir(val)
+    return f"{dir}/{val}.json"
 
 parser = argparse.ArgumentParser(
     usage="%(prog)s <name>", description="does the weird commit dance to update a the vcpkg port <name>")
@@ -38,19 +41,24 @@ with open(f"{PORTDIR}/vcpkg.json", encoding='utf-8') as portfile:
 
 version_file_name = get_version_file_name(PORTNAME)
 print(f"looking at version {version_file_name}")
-version_exists = False
-with open(version_file_name, 'r', encoding='utf-8') as version_file:
-    j = json.load(version_file)
-    for v in j['versions']:
-        if v['version'] == version and v['port-version'] == port_version:
-            version_exists = True
-            print("version already exists, replacing hash")
-            v['git-tree'] = commit_hash
 
-if not version_exists:
-    print("adding version")
-    j['versions'].append(
-        {"version": version, "port-version": port_version, "git-tree": commit_hash})
+if os.path.isdir(get_version_dir(PORTNAME)):
+    version_exists = False
+    with open(version_file_name, 'r', encoding='utf-8') as version_file:
+        j = json.load(version_file)
+        for v in j['versions']:
+            if v['version'] == version and v['port-version'] == port_version:
+                version_exists = True
+                print("version already exists, replacing hash")
+                v['git-tree'] = commit_hash
+
+    if not version_exists:
+        print("adding version")
+        j['versions'].append(
+            {"version": version, "port-version": port_version, "git-tree": commit_hash})
+else:
+    os.makedirs(get_version_dir(PORTNAME), exist_ok=True)
+    j = {"versions":[{"version": version, "port-version": port_version, "git-tree": commit_hash}]}
 
 #print(f"new version file: {j}")
 with open(version_file_name, 'w', encoding='utf-8') as version_file:
@@ -64,9 +72,7 @@ with open("versions/baseline.json", 'r', encoding='utf-8') as baseline_file:
         b['default'][PORTNAME]['port-version'] = port_version
     else:
         print("adding port in baseline")
-        b['default'].append(
-            {"baseline": version, "port-version": port_version}
-        )
+        b['default'][PORTNAME] = {"baseline": version, "port-version": port_version}
 
 with open("versions/baseline.json", 'w', encoding='utf-8') as baseline_file:
     json.dump(b, baseline_file, indent=2)
