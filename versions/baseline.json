@@ -1,6 +1,16 @@
 {
   "default": {
-    "rkcommon": {  "baseline": "1.10.0", "port-version": 2 },
-    "tbb": { "baseline": "2021.5.0", "port-version": 2 }
+    "ispc": {
+      "baseline": "1.18.0",
+      "port-version": 0
+    },
+    "rkcommon": {
+      "baseline": "1.10.0",
+      "port-version": 2
+    },
+    "tbb": {
+      "baseline": "2021.5.0",
+      "port-version": 2
+    }
   }
 }
