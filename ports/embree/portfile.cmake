@@ -1,5 +1,6 @@
 # stole the embree3 port and added ispc
 set(EMBREE3_VERSION 3.13.4)
+vcpkg_check_linkage(ONLY_DYNAMIC_LIBRARY)
 
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
@@ -47,14 +48,19 @@ Only set feature avx automaticlly.
     endif()
 endif()
 
+set(WIN32_OPTIONS "")
+if (WIN32)
+  set(WIN32_OPTIONS -DEMBREE_STATIC_RUNTIME=OFF)
+endif ()
+
 vcpkg_configure_cmake(
     SOURCE_PATH ${SOURCE_PATH}
     DISABLE_PARALLEL_CONFIGURE
     PREFER_NINJA
     OPTIONS ${FEATURE_OPTIONS}
         -DEMBREE_TUTORIALS=OFF
-        -DEMBREE_STATIC_RUNTIME=${EMBREE_STATIC_RUNTIME}
-        -DEMBREE_STATIC_LIB=${EMBREE_STATIC_LIB}
+        -DEMBREE_STATIC_LIB=OFF
+        ${WIN32_OPTIONS}
 )
 
 vcpkg_install_cmake()
