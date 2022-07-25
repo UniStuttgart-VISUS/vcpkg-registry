@@ -42,22 +42,26 @@ with open(f"{PORTDIR}/vcpkg.json", encoding='utf-8') as portfile:
 version_file_name = get_version_file_name(PORTNAME)
 print(f"looking at version {version_file_name}")
 
+version_exists = False
+dir_exists = False
 if os.path.isdir(get_version_dir(PORTNAME)):
-    version_exists = False
-    with open(version_file_name, 'r', encoding='utf-8') as version_file:
-        j = json.load(version_file)
-        for v in j['versions']:
-            if v['version'] == version and v['port-version'] == port_version:
-                version_exists = True
-                print("version already exists, replacing hash")
-                v['git-tree'] = commit_hash
+    dir_exists = True
+    try:
+        with open(version_file_name, 'r', encoding='utf-8') as version_file:
+            j = json.load(version_file)
+            for v in j['versions']:
+                if v['version'] == version and v['port-version'] == port_version:
+                    version_exists = True
+                    print("version already exists, replacing hash")
+                    v['git-tree'] = commit_hash
+    except FileNotFoundError:
+        pass
 
-    if not version_exists:
-        print("adding version")
-        j['versions'].append(
-            {"version": version, "port-version": port_version, "git-tree": commit_hash})
-else:
+if not dir_exists:
     os.makedirs(get_version_dir(PORTNAME), exist_ok=True)
+
+if not version_exists:
+    print("adding version")
     j = {"versions":[{"version": version, "port-version": port_version, "git-tree": commit_hash}]}
 
 #print(f"new version file: {j}")
