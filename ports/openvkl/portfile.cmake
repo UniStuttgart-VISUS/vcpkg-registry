@@ -8,12 +8,19 @@ vcpkg_from_github(
   HEAD_REF master
 )
 
-# TODO ISA options here
+vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
+FEATURES
+    avx     OPENVKL_ISA_AVX
+    avx2    OPENVKL_ISA_AVX2
+    avx512  OPENVKL_ISA_AVX512SKX
+    sse4   OPENVKL_ISA_SSE4
+)
+
 # TODO openimageIO and libpng?
 
 vcpkg_cmake_configure(
   SOURCE_PATH "${SOURCE_PATH}"
-  OPTIONS
+  OPTIONS ${FEATURE_OPTIONS}
     -DBUILD_TESTING=false
     -DBUILD_EXAMPLES=false
 )

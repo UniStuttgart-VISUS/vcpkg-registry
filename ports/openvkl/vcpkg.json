@@ -1,7 +1,7 @@
 {
     "name": "openvkl",
     "version": "1.3.0",
-    "port-version": 0,
+    "port-version": 1,
     "description": "Intel Open Volume Kernel Library",
     "homepage": "https://www.openvkl.org",
     "license": "Apache-2.0",
@@ -23,11 +23,68 @@
           "name": "ispc",
           "version>=": "1.18.0",
           "host": true
-        },
-        {
-          "name": "embree",
-          "version>=": "3.12.2",
-          "host": true
         }
-    ]
+    ],
+    "features": {
+      "avx": {
+        "description": "avx ISA support",
+        "dependencies": [
+          {
+            "name": "embree",
+            "version>=": "3.12.2",
+            "features": [
+              "avx"
+            ]
+          }
+        ]
+      },
+      "avx2": {
+        "description": "avx2 ISA support",
+        "dependencies": [
+          {
+            "name": "embree",
+            "version>=": "3.12.2",
+            "features": [
+              "avx2"
+            ]
+          }
+        ]
+      },
+      "avx512": {
+        "description": "avx512 ISA support",
+        "dependencies": [
+          {
+            "name": "embree",
+            "version>=": "3.12.2",
+            "features": [
+              "avx512"
+            ]
+          }
+        ]
+      },
+      "sse2": {
+        "description": "sse2 ISA support",
+        "dependencies": [
+          {
+            "name": "embree",
+            "version>=": "3.12.2",
+            "features": [
+              "sse2"
+            ]
+          }
+        ]
+      },
+      "sse4": {
+        "description": "sse4 ISA support",
+        "dependencies": [
+          {
+            "name": "embree",
+            "version>=": "3.12.2",
+            "features": [
+              "sse42"
+            ]
+          }
+        ]
+      }
+    }
   }
