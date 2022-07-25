@@ -1,7 +1,7 @@
 {
   "name": "ispc",
   "version": "1.18.0",
-  "port-version": 0,
+  "port-version": 1,
   "homepage": "https://ispc.github.io",
   "description": "Intel Implicit SPMD Program Compiler",
   "dependencies": [
