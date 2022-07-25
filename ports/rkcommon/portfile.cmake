@@ -1,8 +1,10 @@
+set(RKCOMMON_VERSION 1.10.0)
+
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO ospray/rkcommon
-    REF 0b8856cd9278474b56dc5bcff516a4b9482cf147
-    SHA512 836e888e33406f6825b8f5570894402460b3ae65a68ca8aeecf2c8e712f70e9392fdbb2131d538dbf47fc48a0664568e1fd60968452c7517cfeb17c0e608fecf
+    REF v${RKCOMMON_VERSION}
+    SHA512 1dacc9ab0a3abe8b7b21cb2c6518fd1a59ce6008026ccb72eb712bf7859440317a288dbe87602f00ff83b9efea6b020c87c3d0b1febc5abc99d1a76fa3469f19
 )
 
 vcpkg_cmake_configure(
@@ -14,7 +16,7 @@ vcpkg_cmake_configure(
 
 vcpkg_cmake_install()
 
-vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/rkcommon-1.10.0)
+vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/rkcommon-${RKCOMMON_VERSION})
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")
