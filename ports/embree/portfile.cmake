@@ -14,6 +14,9 @@ vcpkg_from_github(
         fix-targets-file-not-found.patch
 )
 
+list(LENGTH FEATURES FEATURE_COUNT)
+#message("FEATURE_COUNT=${FEATURE_COUNT}")
+
 string(COMPARE EQUAL ${VCPKG_LIBRARY_LINKAGE} static EMBREE_STATIC_LIB)
 string(COMPARE EQUAL ${VCPKG_CRT_LINKAGE} static EMBREE_STATIC_RUNTIME)
 
@@ -53,19 +56,23 @@ if (WIN32)
   set(WIN32_OPTIONS -DEMBREE_STATIC_RUNTIME=OFF)
 endif ()
 
-vcpkg_configure_cmake(
+if (FEATURE_COUNT LESS 2)
+  message(FATAL_ERROR "You have to select at least one ISA feature!")
+endif()
+
+vcpkg_cmake_configure(
     SOURCE_PATH ${SOURCE_PATH}
     DISABLE_PARALLEL_CONFIGURE
-    PREFER_NINJA
     OPTIONS ${FEATURE_OPTIONS}
         -DEMBREE_TUTORIALS=OFF
         -DEMBREE_STATIC_LIB=OFF
         ${WIN32_OPTIONS}
 )
 
-vcpkg_install_cmake()
+vcpkg_cmake_install()
+
 vcpkg_copy_pdbs()
-vcpkg_fixup_cmake_targets(CONFIG_PATH share/embree TARGET_PATH share/embree)
+vcpkg_cmake_config_fixup()
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
