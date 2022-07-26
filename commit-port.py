@@ -42,12 +42,15 @@ with open(f"{PORTDIR}/vcpkg.json", encoding='utf-8') as portfile:
 version_file_name = get_version_file_name(PORTNAME)
 print(f"looking at version {version_file_name}")
 
-version_exists = False
 dir_exists = False
+file_exists = False
+version_exists = False
+
 if os.path.isdir(get_version_dir(PORTNAME)):
     dir_exists = True
     try:
         with open(version_file_name, 'r', encoding='utf-8') as version_file:
+            file_exists = True
             j = json.load(version_file)
             for v in j['versions']:
                 if v['version'] == version and v['port-version'] == port_version:
@@ -60,11 +63,15 @@ if os.path.isdir(get_version_dir(PORTNAME)):
 if not dir_exists:
     os.makedirs(get_version_dir(PORTNAME), exist_ok=True)
 
-if not version_exists:
-    print("adding version")
+if not file_exists:
+    print(f"creating version file for {PORTNAME}")
     j = {"versions":[{"version": version, "port-version": port_version, "git-tree": commit_hash}]}
 
-#print(f"new version file: {j}")
+if not version_exists:
+    print(f"adding version {version}#{port_version}")
+    j['versions'].append(
+        {"version": version, "port-version": port_version, "git-tree": commit_hash})
+
 with open(version_file_name, 'w', encoding='utf-8') as version_file:
     json.dump(j, version_file, indent=2)
 
