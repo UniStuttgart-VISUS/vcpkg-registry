@@ -67,7 +67,7 @@ if not file_exists:
     print(f"creating version file for {PORTNAME}")
     j = {"versions":[{"version": version, "port-version": port_version, "git-tree": commit_hash}]}
 
-if not version_exists:
+if file_exists and not version_exists:
     print(f"adding version {version}#{port_version}")
     j['versions'].append(
         {"version": version, "port-version": port_version, "git-tree": commit_hash})
