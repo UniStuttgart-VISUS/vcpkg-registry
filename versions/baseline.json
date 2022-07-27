@@ -6,7 +6,7 @@
     },
     "tbb": {
       "baseline": "2021.5.0",
-      "port-version": 1
+      "port-version": 2
     },
     "embree": {
       "baseline": "3.13.4",

@@ -1,7 +1,7 @@
 {
   "name": "tbb",
   "version": "2021.5.0",
-  "port-version": 1,
+  "port-version": 2,
   "homepage": "https://github.com/oneapi-src/oneTBB",
   "description": "Intel's Threading Building Blocks.",
   "license": "Apache-2.0",

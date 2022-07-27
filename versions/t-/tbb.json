@@ -9,6 +9,11 @@
       "version": "2021.5.0",
       "port-version": 1,
       "git-tree": "630436291a191e0ecfddf8fd302e23294632ef05"
+    },
+    {
+      "version": "2021.5.0",
+      "port-version": 2,
+      "git-tree": "755dd03398787a986e0e6eecce915bfefc47e734"
     }
   ]
 }
