@@ -1,7 +1,7 @@
 {
     "name": "ospray",
     "version": "2.10.0",
-    "port-version": 1,
+    "port-version": 2,
     "description": "The Open, Scalable, and Portable Ray Tracing Engine",
     "homepage": "https://https://www.ospray.org/",
     "license": "Apache-2.0",

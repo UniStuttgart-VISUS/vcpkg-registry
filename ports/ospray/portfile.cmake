@@ -6,6 +6,8 @@ vcpkg_from_github(
   REF v${OSPRAY_VERSION}
   SHA512 b72e6dfc6bd8c7f4013e7074d89a47d52ff56e1270828b8cafc7365209c68614ce4e5842218ff30b170e2ab206741f9c57bf3d31649c5e70785a01267d073e62
   HEAD_REF master
+  PATCHES
+    fix-config-dir-depth.patch
 )
 
 # currently this does not work, either you decide for one or you take them all
@@ -30,7 +32,8 @@ vcpkg_cmake_configure(
 )
 vcpkg_cmake_install()
 
-vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/ospray-${OSPRAY_VERSION})
+#vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/ospray-${OSPRAY_VERSION})
+vcpkg_cmake_config_fixup()
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")
