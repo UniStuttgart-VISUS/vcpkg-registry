@@ -1,3 +1,5 @@
+# pylint: disable=C0103
+
 import argparse
 import os
 import subprocess
@@ -12,11 +14,11 @@ def get_version_dir(val):
     return f"versions/{val[0]}-"
 
 def get_version_file_name(val):
-    dir = get_version_dir(val)
-    return f"{dir}/{val}.json"
+    ver_dir = get_version_dir(val)
+    return f"{ver_dir}/{val}.json"
 
 parser = argparse.ArgumentParser(
-    usage="%(prog)s <name>", description="does the weird commit dance to update a the vcpkg port <name>")
+    usage="%(prog)s <name>", description="does the weird commit dance to update vcpkg port <name>")
 parser.add_argument('name', nargs='+', help='the port name')
 parser.add_argument('--skip-temp-commit', action='store_true')
 args = parser.parse_args()
@@ -28,7 +30,7 @@ check_ret(os.system(f"git add {PORTDIR}"))
 if not args.skip_temp_commit:
     check_ret(os.system('git commit -m "temp"'))
 
-output = subprocess.run(["git", "rev-parse", f"HEAD:{PORTDIR}"], capture_output=True)
+output = subprocess.run(["git", "rev-parse", f"HEAD:{PORTDIR}"], capture_output=True, check=True)
 commit_hash = output.stdout.decode("utf-8").strip()
 
 print(f"got hash: {commit_hash}")
@@ -88,5 +90,5 @@ with open("versions/baseline.json", 'r', encoding='utf-8') as baseline_file:
 with open("versions/baseline.json", 'w', encoding='utf-8') as baseline_file:
     json.dump(b, baseline_file, indent=2)
 
-check_ret(os.system(f"git add versions"))
-check_ret(os.system(f"git commit --amend"))
+check_ret(os.system("git add versions"))
+check_ret(os.system("git commit --amend"))
