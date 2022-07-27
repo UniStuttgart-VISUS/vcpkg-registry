@@ -25,7 +25,7 @@ vcpkg_from_github(
 vcpkg_cmake_configure(
   SOURCE_PATH "${SOURCE_PATH}"
   OPTIONS
-    -DOSPRAY_BUILD_ISA="ALL"
+    -DOSPRAY_BUILD_ISA=ALL
     -DOSPRAY_ENABLE_APPS=false
 )
 vcpkg_cmake_install()
