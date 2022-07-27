@@ -11,6 +11,10 @@
     "embree": {
       "baseline": "3.13.4",
       "port-version": 0
+    },
+    "rkcommon": {
+      "baseline": "1.10.0",
+      "port-version": 0
     }
   }
 }
