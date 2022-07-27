@@ -1,4 +1,8 @@
 {
   "default": {
+    "ispc": {
+      "baseline": "1.18.0",
+      "port-version": 0
+    }
   }
 }
