@@ -19,6 +19,10 @@
     "openvkl": {
       "baseline": "1.3.0",
       "port-version": 0
+    },
+    "ospray": {
+      "baseline": "2.10.0",
+      "port-version": 0
     }
   }
 }
