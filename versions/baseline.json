@@ -14,7 +14,7 @@
     },
     "rkcommon": {
       "baseline": "1.10.0",
-      "port-version": 0
+      "port-version": 1
     },
     "openvkl": {
       "baseline": "1.3.0",
