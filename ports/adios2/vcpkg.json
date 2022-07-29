@@ -1,0 +1,19 @@
+{
+  "name": "adios2",
+  "version": "2.8.2",
+  "port-version": 0,
+  "homepage": "https://github.com/ornladios/ADIOS2",
+  "description": "The Adaptable Input Output System version 2",
+  "license": "Apache-2.0",
+  "dependencies": [
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    },
+    "mpi"
+  ]
+}

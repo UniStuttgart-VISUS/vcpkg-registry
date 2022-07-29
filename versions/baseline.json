@@ -23,6 +23,10 @@
     "ospray": {
       "baseline": "2.10.0",
       "port-version": 3
+    },
+    "adios2": {
+      "baseline": "2.8.2",
+      "port-version": 0
     }
   }
 }
