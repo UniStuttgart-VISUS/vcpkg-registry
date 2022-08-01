@@ -5,11 +5,17 @@ vcpkg_from_github(
     SHA512 6d8e0c201a89e52d2ce3e5112b3f4cf8c762cad29d485641694e6f48b07841331c70c51c4596a10ebd5fcfff0a23466071f4091c23bc281a501666385b9b6c92
 )
 
+set(adios_tools adios2_reorganize bpls)
+if (NOT VCPKG_TARGET_IS_WINDOWS)
+  list(APPEND adios_tools adios2_deactivate_bp)
+endif ()
+
 if ("mpi" IN_LIST FEATURES)
-  set(USE_MPI OO)
-else()
+  set(USE_MPI ON)
+  list(APPEND adios_tools adios2_iotest adios2_reorganize_mpi)
+else ()
   set(USE_MPI OFF)
-endif()
+endif ()
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
@@ -47,11 +53,7 @@ vcpkg_cmake_configure(
 vcpkg_cmake_install()
 vcpkg_copy_pdbs()
 
-if ("mpi" IN_LIST FEATURES)
-  vcpkg_copy_tools(TOOL_NAMES adios2_deactivate_bp adios2_iotest adios2_reorganize adios2_reorganize_mpi bpls AUTO_CLEAN)
-else()
-  vcpkg_copy_tools(TOOL_NAMES adios2_deactivate_bp adios2_reorganize bpls AUTO_CLEAN)
-endif()
+vcpkg_copy_tools(TOOL_NAMES ${adios_tools} AUTO_CLEAN)
 
 vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/adios2)
 
