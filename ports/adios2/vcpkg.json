@@ -1,6 +1,6 @@
 {
   "name": "adios2",
-  "version": "2.8.2",
+  "version": "2.8.3",
   "port-version": 0,
   "homepage": "https://github.com/ornladios/ADIOS2",
   "description": "The Adaptable Input Output System version 2",
@@ -13,7 +13,14 @@
     {
       "name": "vcpkg-cmake-config",
       "host": true
-    },
-    "mpi"
-  ]
+    }
+  ],
+  "features": {
+    "mpi": {
+      "description": "MPI support",
+      "dependencies": [
+        "mpi"
+      ]
+    }
+  }
 }
