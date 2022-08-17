@@ -1,7 +1,7 @@
 {
   "name": "adios2",
   "version": "2.8.3",
-  "port-version": 0,
+  "port-version": 1,
   "homepage": "https://github.com/ornladios/ADIOS2",
   "description": "The Adaptable Input Output System version 2",
   "license": "Apache-2.0",
@@ -20,6 +20,15 @@
       "description": "MPI support",
       "dependencies": [
         "mpi"
+      ]
+    },
+    "python": {
+      "description": "build python module"
+    },
+    "zfp": {
+      "description": "enable zfp support",
+      "dependencies":[
+        "zfp"
       ]
     }
   }

@@ -16,6 +16,16 @@ if ("mpi" IN_LIST FEATURES)
 else ()
   set(USE_MPI OFF)
 endif ()
+if ("python" IN_LIST FEATURES)
+  set(USE_PYTHON ON)
+else ()
+  set(USE_PYTHON OFF)
+endif ()
+if ("zfp" IN_LIST FEATURES)
+  set(USE_ZFP ON)
+else ()
+  set(USE_ZFP OFF)
+endif ()
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
@@ -37,12 +47,12 @@ vcpkg_cmake_configure(
         -DADIOS2_USE_MPI=${USE_MPI}
         -DADIOS2_USE_PNG=OFF
         -DADIOS2_USE_Profiling=OFF
-        -DADIOS2_USE_Python=OFF
+        -DADIOS2_USE_Python=${USE_PYTHON}
         -DADIOS2_USE_SST=OFF
         -DADIOS2_USE_SZ=OFF
         -DADIOS2_USE_Sodium=OFF
         -DADIOS2_USE_SysVShMem=OFF
-        -DADIOS2_USE_ZFP=OFF
+        -DADIOS2_USE_ZFP=${USE_ZFP}
         -DADIOS2_USE_ZeroMQ=OFF
         -DADIOS2_BUILD_EXAMPLES=OFF
         -DADIOS2_INSTALL_GENERATE_CONFIG=OFF
